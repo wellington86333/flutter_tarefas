@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool opacidade = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +25,42 @@ class MyApp extends StatelessWidget {
           leading: Container(),
           title: Text("Tarefas"),
         ),
-        body: ListView(
-          children: [
-            Task(
-                "Aprender Flutter ",
-                "https://cdn-images-1.medium.com/max/406/1*YkWeEU6ii0k_DW0bmrD0Ig.png",
-                3),
-            Task(
-                "Andar de Bike",
-                "http://pedaladasaudavel.com.br/wp-content/uploads/2019/01/blog-cicles-jaime-dicas-para-pedalar-a-noite2-e1547063954595-840x480.jpg",
-                2),
-            Task(
-                "Meditar",
-                "https://magscan.com.br/wp-content/uploads/2020/04/original-2ce8ad3de83875daa42bae2bc572c235.jpeg",
-                5),
-            Task(
-                "Ler",
-                "https://cdn.atenaeditora.com.br/documentos/blog_imagem/35/conversions/1-3-optimized.jpg",
-                4),
-            Task(
-                "Jogar",
-                "https://s3-sa-east-1.amazonaws.com/uploads-anchieta-br/wp-content/uploads/sites/7/2019/03/18144919/foto-como-jogar-video-game-1.jpg",
-                1),
-          ],
+        body: AnimatedOpacity(
+          opacity: opacidade ? 1 : 0,
+          duration: Duration(milliseconds: 800),
+          child: ListView(
+            children: [
+              Task(
+                  "Aprender Flutter ",
+                  "https://cdn-images-1.medium.com/max/406/1*YkWeEU6ii0k_DW0bmrD0Ig.png",
+                  3),
+              Task(
+                  "Andar de Bike",
+                  "http://pedaladasaudavel.com.br/wp-content/uploads/2019/01/blog-cicles-jaime-dicas-para-pedalar-a-noite2-e1547063954595-840x480.jpg",
+                  2),
+              Task(
+                  "Meditar",
+                  "https://magscan.com.br/wp-content/uploads/2020/04/original-2ce8ad3de83875daa42bae2bc572c235.jpeg",
+                  5),
+              Task(
+                  "Ler",
+                  "https://cdn.atenaeditora.com.br/documentos/blog_imagem/35/conversions/1-3-optimized.jpg",
+                  4),
+              Task(
+                  "Jogar",
+                  "https://s3-sa-east-1.amazonaws.com/uploads-anchieta-br/wp-content/uploads/sites/7/2019/03/18144919/foto-como-jogar-video-game-1.jpg",
+                  1),
+            ],
+          ),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {}),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              opacidade = !opacidade;
+            });
+          },
+          child: Icon(Icons.remove_red_eye),
+        ),
       ),
     );
   }
